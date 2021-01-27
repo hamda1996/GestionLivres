@@ -2,9 +2,11 @@ package com.gestionlivres.controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,7 +17,7 @@ import com.gestionlivres.service.BooksService;
 public class BooksController {
 
 	@Autowired
-	public BooksService booksservice;
+	private BooksService booksservice;
 	
 	@GetMapping("/livres")
 	public List<Books>getBooks() {
@@ -23,12 +25,21 @@ public class BooksController {
 	}
 	
 	@GetMapping("/livres/{id}")
-	public Books getContact(@PathVariable int id) {
-		return booksservice.getBooks(id);
+	public Books getBook(@PathVariable int id) {
+		return booksservice.getBook(id);
 	}
 	
 	@PostMapping("/livres")
-	public Books saveContact(@RequestBody Books book) {
-		return booksservice.saveBooks(book);
+	public Books addBook(@RequestBody Books book) {
+		return booksservice.addBook(book);
+	}
+	
+	@PutMapping("/livres")
+	public Books updateBook(@RequestBody Books book) {
+		return booksservice.updateBook(book);
+	}	
+	@DeleteMapping("/livres/{id}")
+	public void deleteBook(@PathVariable int id) {
+		booksservice.deleteBook(id);
 	}
 }

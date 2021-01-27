@@ -19,11 +19,19 @@ public class BooksService {
 		return booksrepository.findAll();
 	}
 	
-	public Books getBooks(@PathVariable int id) {
+	public Books getBook(@PathVariable int id) {
 		return booksrepository.findByid(id);
 	}
 	
-	public Books saveBooks(@RequestBody Books contact) {
-		return booksrepository.save(contact);
+	public Books addBook(@RequestBody Books book) {
+		return booksrepository.save(book);
+	}
+	
+	public Books updateBook(@RequestBody Books book) {
+		return booksrepository.save(book);
+	}	
+	
+	public void deleteBook(@PathVariable int id) {
+		booksrepository.deleteById(id);
 	}
 }
