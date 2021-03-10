@@ -17,7 +17,6 @@ public class Autors {
 	private String prenom;
 	@Temporal(TemporalType.DATE)
 	private Date dateNaissance;
-	//private List<Books>livres;
 	
 	public Autors() {
 		super();

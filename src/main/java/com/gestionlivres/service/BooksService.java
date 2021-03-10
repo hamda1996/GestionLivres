@@ -34,4 +34,12 @@ public class BooksService {
 	public void deleteBook(@PathVariable int id) {
 		booksrepository.deleteById(id);
 	}
+	
+	public List<Books> getBooksByAutor(@PathVariable String autor){
+		return booksrepository.findByAutorNom(autor);
+	}
+
+	public Books updateByBookId(int bookId, int stockToRemove) {
+		return booksrepository.findByIdAndStock(bookId, stockToRemove);
+	}
 }
