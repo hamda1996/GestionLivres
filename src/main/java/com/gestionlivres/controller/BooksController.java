@@ -29,6 +29,11 @@ public class BooksController {
 	public Books getBook(@PathVariable int id) {
 		return booksservice.getBook(id);
 	}
+	@GetMapping("/livres/{id}/stock")
+	public int getstockBook(@PathVariable int id) {
+		Books books = booksservice.getBook(id);
+		return books != null ? books.getStock() : 0;
+	}
 	
 	@GetMapping("/livresOf/{autor}")
 	public List<Books> getBooksByAutor(@PathVariable String autor) {
