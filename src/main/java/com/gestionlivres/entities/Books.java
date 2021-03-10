@@ -12,7 +12,7 @@ import javax.persistence.TemporalType;
 @Entity
 public class Books {
 	@Id @GeneratedValue
-	private int id;
+	private long id;
 	private String nom;
 	private float prix;
 	@Temporal(TemporalType.DATE)
@@ -27,7 +27,7 @@ public class Books {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Books(int id, String nom, float prix, Date datePublication, int stock, Autors autor) {
+	public Books(long id, String nom, float prix, Date datePublication, int stock, Autors autor) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -42,11 +42,11 @@ public class Books {
 		return "Books [id=" + id + ", nom=" + nom + ", prix=" + prix + ", datePublication=" + datePublication + ", stock=" + stock + "; autor=" + autor + "]";
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

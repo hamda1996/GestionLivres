@@ -11,9 +11,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BooksRepository extends JpaRepository<Books, Integer> {
+public interface BooksRepository extends JpaRepository<Books, Long> {
 	
-	public Books findByid(int id);
+	public Books findByid(long id);
 	
 	@Query("SELECT * FROM Books WHERE Books.Autors.nom=autor") //obtenir la liste de livres d'un auteur
 	public List<Books> findByAutorNom(String autor);

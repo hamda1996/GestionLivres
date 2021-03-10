@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.client.RestTemplate;
 
 import com.gestionlivres.dao.BooksRepository;
 import com.gestionlivres.entities.Books;
@@ -19,8 +20,16 @@ public class BooksService {
 		return booksrepository.findAll();
 	}
 	
-	public Books getBook(@PathVariable int id) {
+	public Books getBook(@PathVariable long id) {
 		return booksrepository.findByid(id);
+	}
+	
+	public int getQuantiteLivre(long id)
+	{
+	    final String uri = "http://localhost:9092/panier/"+id+"/quantite";
+	    RestTemplate restTemplate = new RestTemplate();
+	    int result = restTemplate.getForObject(uri, int.class);
+	    return result;
 	}
 	
 	public Books addBook(@RequestBody Books book) {
@@ -31,7 +40,7 @@ public class BooksService {
 		return booksrepository.save(book);
 	}	
 	
-	public void deleteBook(@PathVariable int id) {
+	public void deleteBook(@PathVariable long id) {
 		booksrepository.deleteById(id);
 	}
 	
@@ -39,7 +48,4 @@ public class BooksService {
 		return booksrepository.findByAutorNom(autor);
 	}
 
-	public Books updateByBookId(int bookId, int stockToRemove) {
-		return booksrepository.findByIdAndStock(bookId, stockToRemove);
-	}
 }

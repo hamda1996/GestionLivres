@@ -26,13 +26,18 @@ public class BooksController {
 	}
 	
 	@GetMapping("/livres/{id}")
-	public Books getBook(@PathVariable int id) {
+	public Books getBook(@PathVariable long id) {
 		return booksservice.getBook(id);
 	}
 	@GetMapping("/livres/{id}/stock")
-	public int getstockBook(@PathVariable int id) {
+	public int getstockBook(@PathVariable long id) {
 		Books books = booksservice.getBook(id);
 		return books != null ? books.getStock() : 0;
+	}
+	@GetMapping("/livres/{id}/prix")
+	public float getPrixBook(@PathVariable long id) {
+		Books books = booksservice.getBook(id);
+		return books != null ? books.getPrix() : 0;
 	}
 	
 	@GetMapping("/livresOf/{autor}")
@@ -50,15 +55,8 @@ public class BooksController {
 		return booksservice.updateBook(book);
 	}	
 	@DeleteMapping("/livres/{id}")
-	public void deleteBook(@PathVariable int id) {
+	public void deleteBook(@PathVariable long id) {
 		booksservice.deleteBook(id);
-	}
-	
-	@GetMapping("/livre")
-	public Books updateBookFromId(@RequestParam(name = "bookId") int bookId, @RequestParam(name = "stockToRemove") int stockToRemove) {
-		Books book = booksservice.updateByBookId(bookId, stockToRemove);
-		return book;
-	}
-	
+	}	
 	
 }
