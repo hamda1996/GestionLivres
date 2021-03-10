@@ -19,7 +19,7 @@ public interface BooksRepository extends JpaRepository<Books, Integer> {
 	public List<Books> findByAutorNom(String autor);
 
 	//@Modifying
-	@Query("UPDATE Books SET Books.stock= 10 WHERE Books.id= 1")
+	@Query("UPDATE Books SET Books.stock := Books.stock - 1 WHERE Books.id := bookId")
 	public Books findByIdAndStock(@Param("bookId") int bookId,@Param("stockToRemove") int stockToRemove); 
 
 }
