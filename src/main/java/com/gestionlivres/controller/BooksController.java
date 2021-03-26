@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gestionlivres.entities.Books;
+import com.gestionlivres.entities.StockDto;
 import com.gestionlivres.service.BooksService;
 
 @RestController
@@ -53,7 +55,13 @@ public class BooksController {
 	@PutMapping("/livres")
 	public Books updateBook(@RequestBody Books book) {
 		return booksservice.updateBook(book);
-	}	
+	}
+	
+	@PostMapping("/stock/livre")
+	public Books manageBooksStock(@RequestBody StockDto stockDto) {
+		return booksservice.manageBookStock(stockDto);
+	}
+	
 	@DeleteMapping("/livres/{id}")
 	public void deleteBook(@PathVariable long id) {
 		booksservice.deleteBook(id);

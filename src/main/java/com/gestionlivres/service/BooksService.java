@@ -9,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.gestionlivres.dao.BooksRepository;
 import com.gestionlivres.entities.Books;
+import com.gestionlivres.entities.StockDto;
 
 @Service
 public class BooksService {
@@ -23,15 +24,7 @@ public class BooksService {
 	public Books getBook(@PathVariable long id) {
 		return booksrepository.findByid(id);
 	}
-	
-	public int getQuantiteLivre(long id)
-	{
-	    final String uri = "http://localhost:9092/panier/"+id+"/quantite";
-	    RestTemplate restTemplate = new RestTemplate();
-	    int result = restTemplate.getForObject(uri, int.class);
-	    return result;
-	}
-	
+		
 	public Books addBook(@RequestBody Books book) {
 		return booksrepository.save(book);
 	}
@@ -46,6 +39,18 @@ public class BooksService {
 	
 	public List<Books> getBooksByAutor(@PathVariable String autor){
 		return booksrepository.findByAutorNom(autor);
+	}
+
+	public Books manageBookStock(StockDto stockDto) {
+		Books books = null;
+		if(stockDto != null) {
+			books = booksrepository.findByid(stockDto.getProductId());
+			if(books != null && books.getStock() - stockDto.getQuantityToReduce() > 0) {
+				books.setStock(books.getStock() - stockDto.getQuantityToReduce());
+				books = booksrepository.save(books);
+			}
+		}
+		return books;
 	}
 
 }
